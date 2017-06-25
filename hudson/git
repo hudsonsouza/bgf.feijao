@@ -1,0 +1,26 @@
+
+Banco de Germoplasma de Feijão - BGF
+
+
+#-------------------------------------------------------------------------------
+### SUBIR ARQUIVO PARA GIT 
+
+git status  		// VERMELHO
+git add .
+git status  		// VERDE
+git commit -am  "Meu primeiro commit"
+git status  		// NADA
+git push -u origin master
+git log --pretty=format:"%h - %an, %ar : %s"
+
+#-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+

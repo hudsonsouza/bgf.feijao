@@ -1,0 +1,104 @@
+#
+### BANCO DE GERMOPLASMA DE FEIJÃO - BGF
+#
+
+
+#------------------------------------------------------------------------------
+### BASE DE DADOS - MySQL
+
+BANCO 
+banco: hudsonss_bgf
+usuario: hudson_bgffeijao
+senha: bgf2017
+
+
+### BASE DE DADOS
+CREATE DATABASE hudsonss_bgf DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+### USUARIO DO BANCO
+CREATE USER 'hudson_bgffeijao'@'%' IDENTIFIED BY 'bgf2017';
+GRANT SELECT,UPDATE,DELETE,INSERT ON hudsonss_bgf.* TO 'hudson_bgffeijao'@'%';
+
+
+#------------------------------------------------------------------------------
+### TABELAS
+
+
+### TABELA PESSOA
+create table tb_pessoa(
+    id_pessoa bigint(20) not null auto_increment primary key,
+    nome varchar(255),
+    sexo enum('m','f') DEFAULT 'm',
+    cidade varchar(100),
+    fone varchar(15),
+    email varchar(100),
+    idioma_preferido enum('p','e','i') DEFAULT 'p',
+    situacao enum('a','i') DEFAULT 'a',
+    login varchar(20) not null,
+    senha varchar(32) not null,
+    papel enum('c','p','a') DEFAULT 'c',
+    observacao blob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+
+IDIOMA_PREFERIDO
+    p - pt-BR - Português
+    e - es - Espanhol
+    i - en - Inglês
+
+PAPEL: 
+    c - consultor comum
+    p - professor
+    a - administrador
+
+
+### TABELA ACESSO
+create table tb_acesso(
+    id_acesso bigint(20) not null auto_increment primary key,
+    acesso varchar(150),
+    nome_doador varchar(150),
+    nota_coletor int(3),
+    coord_latitude varchar(15),
+    coord_longitude varchar(15),
+    coord_altitude varchar(15),
+    grupo_comercial varchar(50),
+    pool_genico varchar(50),
+    origem varchar(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+
+
+GRUPO_COMERCIAL:
+    (Carioca, Preto, Rosinha, Mantegão, Bico de Ouro, Jalo, Outros)
+
+POOL_GENICO:	
+    (Andino, Mesoamericano, Durango, Jalisco)
+
+
+
+### TABELA PLANTA
+create table tb_planta(
+    id_planta bigint(20) not null auto_increment primary key,
+    nome_planta varchar(255),
+    
+    pla_id_acesso bigint(20),
+    foreign key (pla_id_acesso) references tb_acesso (id_acesso)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+
+
+
+### TABELA ATRIBUTO
+create table tb_atributo(
+    id_atributo bigint(20) not null auto_increment primary key,
+    foto varchar(50),
+    nota int(3),
+    expressao varchar(50),
+    
+    atr_id_acesso bigint(20),
+    foreign key (atr_id_acesso) references tb_acesso (id_acesso),    
+
+    atr_id_planta bigint(20),
+    foreign key (atr_id_planta) references tb_planta (id_planta)  
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+
