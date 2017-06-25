@@ -1,0 +1,54 @@
+
+01 - ANALISE DE PROJETO
+21-06-2017
+
+BANCO DE GERMOPLASMA DE FEIJÃO - BGF
+
+1 		ESPECIE (PASSAPORTE)
+1.1 	CARACTERISTICA DA PLANTA (SUBDIVISAO 1)
+1.1.1 	ATRIBUTOS (SUBDIVISAO 2)
+
+
+1 PASSAPORTE
+
+	1.1 PLANTA
+	
+		1.1.1 ANTOCIANINA NA FOLHA 
+				1.1.1.1 FOTO		(imagem)
+				1.1.1.2 NOTA		(int: 1 a 9)
+				1.1.1.3 EXPRESSAO	(String: 50 caracter)
+			
+		1.1.2 EMERGENCIA
+				1.1.2.1 FOTO
+				1.1.2.2 NOTA 
+				1.1.2.3 EXPRESSAO
+	
+
+#-------------------------------------------------------------------------------
+### CAMPOS
+
+1 PASSAPORTE
+id_acesso	bigint  (pk)
+acesso		varchar
+nome_doador	varchar
+nota_coletor	int
+coordenada		varchar (coordenada geografica LATITUDE,LONGITUDE,ALTITUDE)
+grupo_comercial (Carioca, Preto, Rosinha, Mantegão, Bico de Ouro, Jalo, Outros)
+pool_genico		(Andino, Mesoamericano, Durango, Jalisco)
+origem			varchar (Estado, IES)
+
+
+
+1.1 PLANTA
+id_planta (pk)
+nome_planta
+id_acesso (fk)
+
+
+1.1.1 ATRIBUTO
+id_atributo	(pk)
+foto		(imagem)
+nota 		(int 0 a 9)
+expressao	(varchar 50)
+id_acesso	(fk)
+id_planta 	(fk)
